@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
@@ -15,17 +15,17 @@ function App() {
     setState((prev) => ({ ...prev, selected: true }));
   };
 
-  const user = useMemo(
-    () => ({
-      name: state.name,
-      selected: state.selected,
-    }),
-    [state.name, state.selected]
-  );
+  // const user = useMemo(
+  //   () => ({
+  //     name: state.name,
+  //     selected: state.selected,
+  //   }),
+  //   [state.name, state.selected]
+  // );
 
   useEffect(() => {
     console.log("The state has changed, useEffect hook runs");
-  }, [user]);
+  }, [state.name, state.selected]);
 
   return (
     <div className="App">
