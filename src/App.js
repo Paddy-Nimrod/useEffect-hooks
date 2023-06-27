@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useMemo, useState } from "react";
+import "./App.css";
 
 function App() {
+  const [name, setName] = useState("");
+  const [state, setState] = useState({
+    name: "",
+    selected: false,
+  });
+
+  const handleAdd = () => {
+    setState((prev) => ({ ...prev, name }));
+  };
+  const handleSelect = () => {
+    setState((prev) => ({ ...prev, selected: true }));
+  };
+
+  const user = useMemo(
+    () => ({
+      name: state.name,
+      selected: state.selected,
+    }),
+    [state.name, state.selected]
+  );
+
+  useEffect(() => {
+    console.log("The state has changed, useEffect hook runs");
+  }, [user]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <input type="text" onChange={(event) => setName(event.target.value)} />
+        <button onClick={handleAdd}>Add name</button>
+        <button onClick={handleSelect}>select</button>
+      </div>
+      <div>
+        {`name: ${state.name}`}
+        {`selected: ${state.selected.toString()}`}
+      </div>
     </div>
   );
 }
