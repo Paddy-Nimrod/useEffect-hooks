@@ -6,6 +6,7 @@ function App() {
   const [state, setState] = useState({
     name: "",
     selected: false,
+    isValid: false,
   });
 
   const handleAdd = () => {
